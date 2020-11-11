@@ -20,7 +20,7 @@ niyo* node_ekle(niyo* a) {
 	}
 	else {
 		niyo* iter = a;
-		while (iter->next != NULL) {
+		while (iter->next->next != NULL) {
 			iter = iter->next;
 			
 		}

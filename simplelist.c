@@ -1,73 +1,91 @@
+// node.cpp : Bu dosya 'main' işlevi içeriyor. Program yürütme orada başlayıp biter.
+//
+
 #include <iostream>
-#include <cstdlib>
+#include  <cstdlib>
 #define NULL 0
-
 using namespace std;
-niyo* a;
 
-struct niyo {
+
+
+
+
+struct nodeler
+{
 	int x;
-	niyo *next;
+	nodeler* next;
+
 };
+nodeler* kok=NULL;
 
-niyo* node_ekle(niyo* a) {
-	
-	if (a == NULL) {
-		a = new niyo;
-		a->x = 5;
-		a->next = NULL;
-		return a;
+void node_Add() {
+	if (kok == NULL) {
+
+		kok = new nodeler;
+		cout << "node ici degeri giriniz (bu ilk nodedir) : " << endl;
+		int b = 0;
+		cin >> b;
+		kok->x = b;
+		kok->next = NULL;
 	}
 	else {
-		niyo* iter = a;
-		while (iter->next->next != NULL) {
+		int b = 0;
+		nodeler* iter = kok;
+		while (iter->next != NULL) {
 			iter = iter->next;
-			
 		}
-		iter->next = new niyo;
-		iter->next->x = 59;
+		iter->next = new nodeler;
+		cout << "node ici degeri giriniz : " << endl;
+		cin >> b;
+		iter->next->x = b;
 		iter->next->next = NULL;
-		return a;
-	}
 
-
-
-}
-
-niyo* node_cikar(niyo* a) {
-	niyo* iter = a;
-	if (iter == NULL) {
-		cout << "Henuz Node Yok" << endl;
-		return NULL;
-	}
-	else if (iter->next == NULL) {
-		cout << " 1 node vardı o da siliniyor" << endl;
-		delete iter;
-		iter = NULL;
-		return NULL;
-	}
-	else {
-		while (iter->next->next != NULL) {
-			iter = iter->next;
-		}
-		delete iter->next;
-		iter->next = NULL;
-		return a;
 	}
 }
-int i=1;
+
+
+
+int i = 1;
 void node_yazdir() {
-	while (a != NULL) {
-		cout <<i<<". Node'nin degeri : "<< a->x << endl;;
-		a = a->next;
+	
+	while (kok != NULL) {
+		cout << i << ". Node'nin degeri : " << kok->x << endl;;
+		kok = kok->next;
 		i++;
 	}
+
 }
 
-int main()
-{	
-	node_yazdir();
-	node_cikar(a);
-	node_ekle(a);
+void node_delete() {
+	nodeler* iter = kok;
+	if (kok->next == NULL) {
+		delete(kok);
+		kok = NULL;
+	}
+	else {
+		while (iter->next->next != NULL) {
+			iter = iter->next;
+		}
+		delete (iter->next);
+		iter->next = NULL;
+	}
+	
 }
- 
+
+
+
+int main()
+{
+	int niyop = 3;
+	nodeler* kok=NULL;
+	while (niyop<7)
+	{
+		node_Add();
+		niyop++;
+	}
+
+
+	node_yazdir();
+
+
+}

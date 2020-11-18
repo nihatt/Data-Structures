@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+struct nodes {
+	int x;
+	nodes* next;
+};
+nodes* kok = NULL;
+nodes* iter = kok;
+void pushStack(int a) {
+	iter = kok;
+	if (kok == NULL) {
+		kok = new nodes;
+		kok->x = a;
+		kok->next = NULL;
+	}
+	else
+	{
+		while (iter->next != NULL) {
+			iter = iter->next;
+		}
+		iter->next = new nodes;
+		iter->next->x = a;
+		iter->next->next = NULL;
+	}
+	}
+
+
+void popStack() {
+	iter = kok;
+	if (iter == NULL) {
+		cout << "Stack underflow" << endl;
+	}
+	else if (iter->next == NULL) {
+		cout << "there was only 1 index and it's being deleted" << endl;
+		delete (iter);
+		iter->next = NULL;
+	}
+	while (iter->next->next != NULL) {
+		iter = iter->next;
+	}
+	delete (iter->next);
+	iter->next = NULL;
+
+}
+
+void printStack() {
+	iter = kok;
+	int cntr = 1;
+	if (kok == NULL) {
+		cout << "stack is empty" << endl;
+	}
+	while (iter != NULL) {
+		cout << cntr << ". index is" << iter->x<<endl;
+		iter = iter->next;
+		cntr++;
+	}
+}
+
+int main() {
+	pushStack(20);
+	pushStack(152);
+	pushStack(147);
+	pushStack(1265);
+	pushStack(1569);
+	printStack();
+	popStack();
+	printStack();
+	popStack();
+	printStack();
+
+}
